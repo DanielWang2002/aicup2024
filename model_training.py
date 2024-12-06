@@ -263,6 +263,38 @@ def train_stacking_model(
     return stack_model
 
 
+# def predict_test_data(
+#     X_train_fe: pd.DataFrame,
+#     y_train: pd.Series,
+#     X_val_fe: pd.DataFrame,
+#     y_val: pd.Series,
+#     test_data_features_fe: pd.DataFrame,
+#     best_params_xgb: dict,
+#     best_params_lgb: dict,
+#     best_params_cat: dict,
+# ) -> pd.Series:
+#     """
+#     訓練模型並對測試資料進行預測。
+
+#     :param X_train_fe: 訓練集特徵的 DataFrame
+#     :param y_train: 訓練集標籤的 Series
+#     :param X_val_fe: 驗證集特徵的 DataFrame
+#     :param y_val: 驗證集標籤的 Series
+#     :param test_data_features_fe: 測試資料特徵的 DataFrame
+#     :param best_params_xgb: XGBoost 的最佳參數字典
+#     :param best_params_lgb: LightGBM 的最佳參數字典
+#     :param best_params_cat: CatBoost 的最佳參數字典
+#     :return: 測試資料的預測結果 Series
+#     """
+#     stack_model = train_stacking_model(
+#         X_train_fe, y_train, X_val_fe, y_val, best_params_xgb, best_params_lgb, best_params_cat
+#     )
+
+
+#     # 對測試集進行預測
+#     y_test_pred = stack_model.predict(test_data_features_fe)
+#     y_test_pred = np.asarray(y_test_pred).flatten()
+#     return pd.Series(y_test_pred)
 def predict_test_data(
     X_train_fe: pd.DataFrame,
     y_train: pd.Series,
@@ -272,19 +304,11 @@ def predict_test_data(
     best_params_xgb: dict,
     best_params_lgb: dict,
     best_params_cat: dict,
-) -> pd.Series:
+) -> tuple:
     """
-    訓練模型並對測試資料進行預測。
+    訓練模型並對測試資料進行預測，同時回傳堆疊模型和預測結果。
 
-    :param X_train_fe: 訓練集特徵的 DataFrame
-    :param y_train: 訓練集標籤的 Series
-    :param X_val_fe: 驗證集特徵的 DataFrame
-    :param y_val: 驗證集標籤的 Series
-    :param test_data_features_fe: 測試資料特徵的 DataFrame
-    :param best_params_xgb: XGBoost 的最佳參數字典
-    :param best_params_lgb: LightGBM 的最佳參數字典
-    :param best_params_cat: CatBoost 的最佳參數字典
-    :return: 測試資料的預測結果 Series
+    :return: (stack_model, y_test_pred)
     """
     stack_model = train_stacking_model(
         X_train_fe, y_train, X_val_fe, y_val, best_params_xgb, best_params_lgb, best_params_cat
@@ -293,4 +317,4 @@ def predict_test_data(
     # 對測試集進行預測
     y_test_pred = stack_model.predict(test_data_features_fe)
     y_test_pred = np.asarray(y_test_pred).flatten()
-    return pd.Series(y_test_pred)
+    return stack_model, pd.Series(y_test_pred)

@@ -19,6 +19,7 @@ from test_data_preprocessing import (
     remove_datetime_column as remove_datetime_column_test,
 )
 from feature_engineering import perform_feature_engineering
+from feature_importance import plot_feature_importance
 from scaling import scale_data
 from model_training import train_and_evaluate_model, predict_test_data, train_stacking_model
 from submission import create_submission_file
@@ -69,6 +70,7 @@ def main():
         test_data_features_fe = test_data_features.copy()
 
     print("特徵工程已完成。")
+    # print(X_train_fe)
 
     # 資料縮放
     X_train_fe, X_val_fe, test_data_features_fe = scale_data(
@@ -82,8 +84,8 @@ def main():
         X_train_fe, y_train, X_val_fe, y_val, use_optuna=use_optuna
     )
 
-    # 訓練模型與預測測試資料
-    y_test_pred = predict_test_data(
+    # 訓練模型與預測測試資料，同時回傳stack_model
+    stack_model, y_test_pred = predict_test_data(
         X_train_fe,
         y_train,
         X_val_fe,
@@ -102,6 +104,9 @@ def main():
     print("最佳參數（XGBoost）：", best_params_xgb)
     print("最佳參數（LightGBM）：", best_params_lgb)
     print("最佳參數（CatBoost）：", best_params_cat)
+
+    # 呼叫特徵重要度繪製功能
+    plot_feature_importance(stack_model, X_train_fe.columns, output_path="feature_importance.png")
 
 
 if __name__ == "__main__":
