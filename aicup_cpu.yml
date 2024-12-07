@@ -1,0 +1,20 @@
+name: aicup
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pandas
+  - numpy
+  - scikit-learn
+  - xgboost
+  - lightgbm
+  - catboost
+  - matplotlib
+  - optuna
+  - pip
+  - pip:
+      - torch
+      - torchvision
+      - torchaudio
+      - openfe

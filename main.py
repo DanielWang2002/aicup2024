@@ -58,55 +58,55 @@ def main():
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
     print("已將資料切分為訓練集和驗證集。")
 
-    # 特徵工程
-    use_openfe = True
-    if use_openfe:
-        X_train_fe, X_val_fe, test_data_features_fe = perform_feature_engineering(
-            X_train, y_train, X_val, test_data_features, n_features=5
-        )
-    else:
-        X_train_fe = X_train.copy()
-        X_val_fe = X_val.copy()
-        test_data_features_fe = test_data_features.copy()
+    # # 特徵工程
+    # use_openfe = True
+    # if use_openfe:
+    #     X_train_fe, X_val_fe, test_data_features_fe = perform_feature_engineering(
+    #         X_train, y_train, X_val, test_data_features, n_features=5
+    #     )
+    # else:
+    #     X_train_fe = X_train.copy()
+    #     X_val_fe = X_val.copy()
+    #     test_data_features_fe = test_data_features.copy()
 
-    print("特徵工程已完成。")
-    # print(X_train_fe)
+    # print("特徵工程已完成。")
+    # # print(X_train_fe)
 
-    # 資料縮放
-    X_train_fe, X_val_fe, test_data_features_fe = scale_data(
-        X_train_fe, X_val_fe, test_data_features_fe
-    )
-    print("資料縮放已完成。")
+    # # 資料縮放
+    # X_train_fe, X_val_fe, test_data_features_fe = scale_data(
+    #     X_train_fe, X_val_fe, test_data_features_fe
+    # )
+    # print("資料縮放已完成。")
 
-    # 訓練和評估模型
-    use_optuna = False  # 將此設為 True 以啟用 Optuna 調參
-    best_params_xgb, best_params_lgb, best_params_cat = train_and_evaluate_model(
-        X_train_fe, y_train, X_val_fe, y_val, use_optuna=use_optuna
-    )
+    # # 訓練和評估模型
+    # use_optuna = False  # 將此設為 True 以啟用 Optuna 調參
+    # best_params_xgb, best_params_lgb, best_params_cat = train_and_evaluate_model(
+    #     X_train_fe, y_train, X_val_fe, y_val, use_optuna=use_optuna
+    # )
 
-    # 訓練模型與預測測試資料，同時回傳stack_model
-    stack_model, y_test_pred = predict_test_data(
-        X_train_fe,
-        y_train,
-        X_val_fe,
-        y_val,
-        test_data_features_fe,
-        best_params_xgb,
-        best_params_lgb,
-        best_params_cat,
-    )
+    # # 訓練模型與預測測試資料，同時回傳stack_model
+    # stack_model, y_test_pred = predict_test_data(
+    #     X_train_fe,
+    #     y_train,
+    #     X_val_fe,
+    #     y_val,
+    #     test_data_features_fe,
+    #     best_params_xgb,
+    #     best_params_lgb,
+    #     best_params_cat,
+    # )
 
-    # 建立提交檔案
-    create_submission_file(test_data, y_test_pred)
-    print("結果已儲存至 submission.csv")
+    # # 建立提交檔案
+    # create_submission_file(test_data, y_test_pred)
+    # print("結果已儲存至 submission.csv")
 
-    # 輸出最佳參數
-    print("最佳參數（XGBoost）：", best_params_xgb)
-    print("最佳參數（LightGBM）：", best_params_lgb)
-    print("最佳參數（CatBoost）：", best_params_cat)
+    # # 輸出最佳參數
+    # print("最佳參數（XGBoost）：", best_params_xgb)
+    # print("最佳參數（LightGBM）：", best_params_lgb)
+    # print("最佳參數（CatBoost）：", best_params_cat)
 
-    # 呼叫特徵重要度繪製功能
-    plot_feature_importance(stack_model, X_train_fe.columns, output_path="feature_importance.png")
+    # # 呼叫特徵重要度繪製功能
+    # plot_feature_importance(stack_model, X_train_fe.columns, output_path="feature_importance.png")
 
 
 if __name__ == "__main__":
