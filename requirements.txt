@@ -16,5 +16,6 @@ torchaudio==2.0.2
 # OpenFE
 openfe
 
-# selenium
+# Scrapy
 selenium
+webdriver_manager

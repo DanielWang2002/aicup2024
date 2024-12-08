@@ -44,7 +44,7 @@ def generate_azimuth_dataframe(row: pd.Series) -> pd.DataFrame:
     Returns:
         pd.DataFrame: 包含日期時間及對應方位角的資料表。
     """
-    date = datetime.strptime(row["日期"], "%Y/%m/%d")
+    date = datetime.strptime(row["日期"], "%Y-%m-%d")
     sunrise = row["日出時刻"]
     sunset = row["日沒時刻"]
     sunrise_az = float(row["日出方位角"])

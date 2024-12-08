@@ -13,10 +13,15 @@ pip install -r requirements.txt
 > **⚠️ 請注意 ⚠️**
 > 1. 該環境及程式僅在本團隊之設備上測試，由於機器學習會使用大量記憶體，若記憶體較少或是CPU等級較低，會大幅影響程式執行速度，下方將提供本團隊設備及執行時間供參考。
 > 
-> 2. 由於資料前處理並不是在實驗過程中會重複執行的一個部分，因此我們會使用 `concat_dataset.py` 來將所有原始資料(例如 `L1_Train.csv`)合併成 `concat.csv` 作為資料集使用，之後主程式也只會呼叫 `concat.csv` 。
+> 2. 由於資料前處理並不是在實驗過程中會重複執行的一個部分，因此以下4支程式並不會在 `main.py` 中出現，這邊會進行額外說明：
+> - `concat_dataset.py` 會將所有原始資料(例如 `L1_Train.csv`)合併成 `concat.csv` 作為資料集使用，之後主程式也只會呼叫 `concat.csv` 。
+> - `solar_angles_10min.py` 為 `仰角` 處理程式。
+> - `solar_azimuths.py` 為 `方位角` 處理程式。
+> - `scrapy.py` 為 `外部資料爬蟲`程式。
 >
 > 3. 在 `feature_importance.py` 中，為了顯示中文我們使用的是 `Noto Sans CJK JP` 字體，請確保運行裝置有該字體，或是替換成任一支持中文的字體，否則會造成中文字型顯示問題。
-> 4. LSTM實驗部分也有提供 `README.md` ，請至該資料夾查看說明
+> 4. LSTM實驗部分也有提供 `README.md` ，請至該資料夾查看說明。
+> 5. 爬取外部資料程式 `scrapy.py` 使用的是 `Firefox` 瀏覽器。
 
 | 環境設備 | 內容 |
 | --- | --- |

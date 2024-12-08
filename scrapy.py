@@ -1,15 +1,14 @@
 import time
 import csv
-import os
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 def extract_data(driver):
@@ -49,11 +48,10 @@ def extract_data(driver):
 
 if __name__ == "__main__":
     # 設定 WebDriver，使用 webdriver_manager 自動安裝 ChromeDriver
-    chrome_options = Options()
+    options = Options()
 
-    driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()), options=chrome_options
-    )
+    # 使用 GeckoDriverManager 自動下載 geckodriver，並使用 Firefox 瀏覽器
+    driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()), options=options)
 
     # 開啟目標網頁
     url = "https://www.cwa.gov.tw/V8/C/K/astronomy_day.html"
@@ -98,7 +96,9 @@ if __name__ == "__main__":
     with open(csv_file, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
         # 寫入表頭
-        writer.writerow(["日期", "日出時刻", "方位角", "太陽過中天", "仰角", "日沒時刻", "方位角"])
+        writer.writerow(
+            ["日期", "日出時刻", "日出方位角", "太陽過中天", "仰角", "日沒時刻", "日沒方位角"]
+        )
 
         # 寫入資料
         for date, values in results.items():
