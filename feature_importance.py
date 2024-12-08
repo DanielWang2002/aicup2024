@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
+plt.rcParams["font.sans-serif"] = ["Noto Sans CJK JP"]
+plt.rcParams["axes.unicode_minus"] = False
+
 
 def plot_feature_importance(stack_model, feature_columns, output_path="feature_importance.png"):
     """
