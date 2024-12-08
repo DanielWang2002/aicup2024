@@ -53,6 +53,7 @@ python ./main.py
 .
 ├── LSTM                        # LSTM實驗結果
 ├── aicup_empty_answer.csv      # upload.csv
+├── astronomy_data.csv          # 爬取下來的外部資料
 ├── catboost_info               # catboost自動生成緩存資料夾
 ├── concat.csv                  # 經過資料清洗後整合完的資料
 ├── concat_dataset.py           # 處理原始資料集，整合成concat.csv
